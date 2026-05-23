@@ -1,15 +1,14 @@
 import { useState } from "react";
-import "./App.css";
 import {
   Route,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-  Outlet,
 } from "react-router-dom";
-import styled from "styled-components";
 import Home from "./Pages/Home";
 import AllPagesNav from "./Pages/AllPagesNav";
+import styled from "styled-components";
+import vectorImage from "./images/Vector 2.png";
 
 function App() {
   const router = createBrowserRouter(
@@ -26,14 +25,15 @@ function RootLayout() {
   return (
     <StyleDiv>
       <AllPagesNav />
-      <Outlet />
     </StyleDiv>
   );
 }
 
-export default App;
-
 const StyleDiv = styled.div`
-  background: papayawhip;
-  min-height: 100vh;
+  background-image: url(${vectorImage});
+  background-size: cover;
+  background-position: center;
+  padding: 28px;
 `;
+
+export default App;

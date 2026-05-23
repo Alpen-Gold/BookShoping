@@ -1,11 +1,7 @@
 import styled from "styled-components";
 
 function Home() {
-  return (
-    <StyleDiv>
-      <h1>Home</h1>
-    </StyleDiv>
-  );
+  return <StyleDiv></StyleDiv>;
 }
 
 export default Home;
