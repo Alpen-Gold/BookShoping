@@ -4,18 +4,16 @@ import {
   SearchOutlined,
   BookOutlined,
   GiftOutlined,
-  MenuOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, Input, Select } from "antd";
+import { Button, Layout, Menu, Select } from "antd";
+
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import type { RootState } from "../stores/store";
+import { useSelector } from "react-redux";
 const { Header, Content, Sider } = Layout;
 
 function AllPagesNav() {
-  const count = useSelector((state: RootState) => state.allFunctions.value);
-  const dispatch = useDispatch();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const menuItems = [
@@ -62,12 +60,12 @@ function AllPagesNav() {
         {/* SIDEBAR */}
         <Sider breakpoint="lg" collapsedWidth="0" width={200}>
           {/* Logo */}
-          <div style={{ padding: "24px", borderBottom: "1px solid #f0f0f0" }}>
-            <div style={{ fontSize: "20px", fontWeight: "bold" }}>
-              <span style={{ color: "#000" }}>My</span>
-              <span style={{ color: "#d4453a" }}> Book</span>
+          <div className="sideLogo">
+            <div className="sideLogoTitle">
+              <span className="sideLogoBlack">My</span>
+              <span className="sideLogoAccent"> Book</span>
               <br />
-              <span style={{ color: "#000" }}>Shelf</span>
+              <span className="sideLogoBlack">Shelf</span>
             </div>
           </div>
 
@@ -76,18 +74,13 @@ function AllPagesNav() {
             mode="inline"
             defaultSelectedKeys={["1"]}
             items={menuItems}
-            style={{ borderRight: "none" }}
+            className="sideMenu"
           />
 
           {/* Footer Links */}
           <div className="footer">
             {footerItems.map((item) => (
-              <div
-                key={item.key}
-                style={{ marginBottom: "8px", cursor: "pointer" }}
-                onMouseEnter={(e: any) => (e.target.style.color = "#000")}
-                onMouseLeave={(e: any) => (e.target.style.color = "#666")}
-              >
+              <div key={item.key} className="footerLink">
                 {item.label}
               </div>
             ))}
@@ -97,136 +90,33 @@ function AllPagesNav() {
         {/* MAIN LAYOUT */}
         <Layout>
           {/* HEADER */}
-          <Header
-            style={{
-              background: "#E9E9ED",
-              padding: "0 24px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderBottom: "1px solid #f0f0f0",
-              position: "sticky",
-              top: 0,
-              zIndex: 20,
-            }}
-          >
-            {/* Left Side - Search */}
-            <div
-              style={{
-                display: "flex",
-                gap: "12px",
-                flex: 1,
-                alignItems: "center",
-              }}
-            >
-              <button
-                className="mobile-menu-button"
-                aria-label="Open menu"
-                onClick={() => setMobileMenuOpen(true)}
-              >
-                <MenuOutlined />
-              </button>
-              <Select
-                defaultValue="All"
-                style={{ width: "80px" }}
-                options={[
-                  { label: "All", value: "All" },
-                  { label: "Fiction", value: "Fiction" },
-                  { label: "Non-Fiction", value: "Non-Fiction" },
-                ]}
-              />
-
-              <Input
-                placeholder="Search"
-                style={{ width: "200px" }}
-                prefix={<SearchOutlined />}
-              />
-            </div>
-
+          <Header className="appHeader">
             {/* Right Side - Info */}
-            <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+            <div className="headerRight">
               <Button type="text" icon={<SearchOutlined />} />
 
-              <span style={{ fontSize: "12px" }}>Lang</span>
+              <span className="headerLabel">Lang</span>
               <Select
                 defaultValue="Eng"
-                style={{ width: "60px" }}
+                className="headerSelect"
                 options={[
                   { label: "Eng", value: "Eng" },
                   { label: "Rus", value: "Rus" },
                 ]}
               />
 
-              <span style={{ fontSize: "12px" }}>09:00 AM</span>
+              <span className="headerMeta">09:00 AM</span>
+              <span className="headerMeta">4-MAR-2023</span>
 
-              <span style={{ fontSize: "12px" }}>4-MAR-2023</span>
-
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
-              >
-                <div
-                  style={{
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    background: "#000",
-                  }}
-                />
-                <span style={{ fontSize: "12px" }}>Kenson</span>
+              <div className="profileWrap">
+                <div className="profileAvatar" />
+                <span className="profileName">Kenson</span>
               </div>
             </div>
           </Header>
 
-          {/* MOBILE DRAWER */}
-          <div
-            className={`mobile-drawer-overlay ${mobileMenuOpen ? "open" : ""}`}
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          <div className={`mobile-drawer ${mobileMenuOpen ? "open" : ""}`}>
-            <div className="mobile-drawer-logo">
-              <div style={{ fontSize: "20px", fontWeight: "bold" }}>
-                <span style={{ color: "#000" }}>My</span>
-                <span style={{ color: "#d4453a" }}> Book</span>
-                <br />
-                <span style={{ color: "#000" }}>Shelf</span>
-              </div>
-            </div>
-
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={["1"]}
-              items={menuItems}
-              style={{ borderRight: "none" }}
-              onClick={() => setMobileMenuOpen(false)}
-            />
-
-            <div className="mobile-drawer-footer">
-              {footerItems.map((item) => (
-                <div
-                  key={item.key}
-                  style={{ marginBottom: "8px", cursor: "pointer" }}
-                >
-                  {item.label}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <Content
-            style={{
-              padding: "24px",
-              backgroundColor: "#E9E9ED",
-              overflow: "auto",
-              scrollbarWidth: "none",
-            }}
-          >
-            <div
-              style={{
-                background: "#E9E9ED",
-                borderRadius: "8px",
-                padding: "24px",
-              }}
-            >
+          <Content className="pageContent">
+            <div className="pageCard">
               <Outlet />
             </div>
           </Content>
@@ -321,6 +211,86 @@ const StyleDiv = styled.div`
     border-top: 1px solid #f0f0f0;
     font-size: 12px;
     color: #666;
+  }
+
+  .headerRight {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-width: 0;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .headerLabel {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .headerSelect {
+    width: 60px;
+  }
+
+  .headerMeta {
+    font-size: 12px;
+    color: #6b7280;
+    white-space: nowrap;
+  }
+
+  .profileWrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .profileAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #000;
+    flex: 0 0 auto;
+  }
+
+  .profileName {
+    font-size: 12px;
+    color: #111827;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 110px;
+    display: inline-block;
+  }
+
+  @media (max-width: 350px) {
+    .headerRight {
+      gap: 12px;
+    }
+
+    .headerMeta {
+      display: none;
+    }
+
+    .headerLabel {
+      display: none;
+    }
+
+    .profileName {
+      max-width: 70px;
+    }
+  }
+
+  .pageContent {
+    padding: 24px;
+    background-color: #e9e9ed;
+    overflow: auto;
+    scrollbar-width: none;
+  }
+
+  .pageCard {
+    background: #e9e9ed;
+    border-radius: 8px;
+    padding: 24px;
   }
 
   @media (max-width: 991px) {

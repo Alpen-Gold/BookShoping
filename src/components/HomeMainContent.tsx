@@ -102,15 +102,12 @@ function HomeMainContent() {
       <div className="books-father">
         <p>Recommended for You</p>
         <div
-          className="books-grid"
+          className={`books-grid ${isDragging ? "is-grabbing" : ""}`}
           ref={containerRef}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
-          style={{
-            cursor: isDragging ? "grabbing" : "grab",
-          }}
         >
           {books.map((book) => (
             <div key={book.id} className="book-card">
@@ -131,6 +128,8 @@ export default HomeMainContent;
 
 const StyleDiv = styled.div`
   .books-grid {
+    cursor: grab;
+
     overflow-x: auto;
     width: 100%;
     display: flex;
