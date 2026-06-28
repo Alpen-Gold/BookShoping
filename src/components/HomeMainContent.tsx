@@ -1,7 +1,5 @@
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import type { RootState } from "../stores/store";
 
 function HomeMainContent() {
   interface Book {

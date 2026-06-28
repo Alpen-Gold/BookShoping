@@ -8,14 +8,9 @@ import {
 import { Button, Layout, Menu, Select } from "antd";
 
 import styled from "styled-components";
-import { useState } from "react";
-import type { RootState } from "../stores/store";
-import { useSelector } from "react-redux";
 const { Header, Content, Sider } = Layout;
 
 function AllPagesNav() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const menuItems = [
     {
       key: "1",
