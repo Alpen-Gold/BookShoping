@@ -19,7 +19,11 @@ import Login from "./Pages/authorisation/Login";
 import AllPagesNav from "./Pages/AllPagesNav";
 import styled from "styled-components";
 import vectorImage from "./images/Vector 2.png";
+import type { ReactNode } from "react";
 
+type RouteProps = {
+  children: ReactNode;
+};
 /* -------------------- AUTH CHECK -------------------- */
 const getToken = () => {
   const token = localStorage.getItem("token");
@@ -28,7 +32,7 @@ const getToken = () => {
 };
 
 /* -------------------- PROTECTED ROUTE -------------------- */
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children }: RouteProps) => {
   const token = getToken();
 
   console.log("token", token);
@@ -41,7 +45,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 /* -------------------- PUBLIC ROUTE -------------------- */
-const PublicRoute = ({ children }) => {
+const PublicRoute = ({ children }: RouteProps) => {
   const token = getToken();
 
   if (token) {

@@ -1,16 +1,17 @@
 import { useState } from "react";
 
-const useInputValidation = (initalValue) => {
-  const [value, setValue] = useState(initalValue);
+const useInputValidation = (initialValue: string) => {
+  const [value, setValue] = useState(initialValue);
 
-  const onChange = (e) => {
-    setValue(value);
-  };
-  const validationIput = () => {
-    return value.search(/\/d/) >= 0;
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
   };
 
-  return { value, onChange, validationIput };
+  const validationInput = () => {
+    return /\d/.test(value);
+  };
+
+  return { value, onChange, validationInput };
 };
 
 export default useInputValidation;
