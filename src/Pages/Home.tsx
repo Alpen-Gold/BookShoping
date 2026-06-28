@@ -1,6 +1,9 @@
 import { Badge, Carousel } from "antd";
 import styled from "styled-components";
-import HomeMainContent from "./components/HomeMainContent";
+import HomeMainContent from "../components/HomeMainContent";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { getHomeQuestions } from "../api";
 
 interface Quote {
   text: string;
@@ -78,7 +81,7 @@ const books: Book[] = [
   },
 
   {
-    id: 4,
+    id: 213013,
     title: "Don't Make Me Think",
     image:
       "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=200&h=300&fit=crop",
@@ -86,7 +89,7 @@ const books: Book[] = [
   },
 
   {
-    id: 4,
+    id: 212141,
     title: "Don't Make Me Think",
     image:
       "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=200&h=300&fit=crop",
@@ -95,6 +98,41 @@ const books: Book[] = [
 ];
 
 function Home() {
+  const { error, loading } = useSelector((store: any) => store.allFunctions);
+
+  const dispatch = useDispatch();
+  const [homeData, setHomeData] = useState<any>(null);
+
+  useEffect(() => {
+    getHomeQuestions(dispatch).then((data: any) => setHomeData(data));
+  }, []);
+
+  if (loading)
+    return (
+      <div className="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    );
+  if (error)
+    return (
+      <div className=" d-flex mt-4 justify-center text-red-600">
+        You have problem or your connection is not working!
+      </div>
+    );
+
+  const apiBooks: Book[] = (() => {
+    if (!homeData) return [];
+    if (Array.isArray(homeData)) return homeData;
+    if (Array.isArray(homeData.books)) return homeData.books;
+    if (Array.isArray(homeData.data)) return homeData.data;
+    return [];
+  })();
+
+  const visibleBooks = apiBooks.length ? apiBooks : books;
+
   return (
     <>
       <StyledDiv>
@@ -117,7 +155,7 @@ function Home() {
               className="newArrivals"
             >
               <div className="books-grid">
-                {books.map((book) => (
+                {visibleBooks.map((book) => (
                   <div key={book.id} className="book-card">
                     <img src={book.image} alt={book.title} />
                     <div className="book-info">
@@ -147,6 +185,38 @@ const StyledDiv = styled.div`
     gap: 16px;
     align-items: flex-start;
     max-height: 200px;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      gap: 12px;
+      max-height: none;
+    }
+
+    .carousel-wrapper {
+      width: 100%;
+    }
+
+    .content-caruseal {
+      height: 170px;
+      padding: 16px;
+    }
+
+    .side-panel {
+      width: 100%;
+      max-height: none;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .book-card {
+      min-width: 130px;
+    }
+
+    .book-card img {
+      height: 130px;
+    }
   }
 
   .carousel-wrapper {
@@ -206,6 +276,21 @@ const StyledDiv = styled.div`
 
     &:hover {
       transform: translateY(-4px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .book-card {
+      min-width: 120px;
+      padding: 0;
+    }
+
+    .book-info h4 {
+      font-size: 12px;
+    }
+
+    .category {
+      font-size: 10px;
     }
   }
 
