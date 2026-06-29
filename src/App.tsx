@@ -67,8 +67,7 @@ function RootLayout() {
 
 /* -------------------- ROUTER -------------------- */
 function App() {
-  const [themeMode, setThemeMode] = useState("light");
-
+  const [themeMode, _setThemeMode] = useState("light");
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
