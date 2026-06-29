@@ -19,7 +19,8 @@ import Login from "./Pages/authorisation/Login";
 import AllPagesNav from "./Pages/AllPagesNav";
 import styled from "styled-components";
 import vectorImage from "./images/Vector 2.png";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { ConfigProvider, theme } from "antd";
 
 type RouteProps = {
   children: ReactNode;
@@ -66,6 +67,8 @@ function RootLayout() {
 
 /* -------------------- ROUTER -------------------- */
 function App() {
+  const [themeMode, setThemeMode] = useState("light");
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -126,7 +129,16 @@ function App() {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm:
+          themeMode === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
+      }}
+    >
+      <RouterProvider router={router} />
+    </ConfigProvider>
+  );
 }
 
 /* -------------------- STYLES -------------------- */

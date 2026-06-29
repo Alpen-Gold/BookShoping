@@ -5,7 +5,7 @@ import {
   BookOutlined,
   GiftOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, Select } from "antd";
+import { Button, Layout, Menu, Select, Switch } from "antd";
 
 import styled from "styled-components";
 const { Header, Content, Sider } = Layout;
@@ -107,6 +107,18 @@ function AllPagesNav() {
                 <div className="profileAvatar" />
                 <span className="profileName">Kenson</span>
               </div>
+
+              <span className="themeToggleLabel">Theme</span>
+              <Switch
+                checked={localStorage.getItem("themeMode") === "dark"}
+                checkedChildren="Dark"
+                unCheckedChildren="Light"
+                onChange={(checked) => {
+                  const mode = checked ? "dark" : "light";
+                  localStorage.setItem("themeMode", mode);
+                  window.location.reload();
+                }}
+              />
             </div>
           </Header>
 
@@ -132,6 +144,31 @@ const StyleDiv = styled.div`
     background-color: #fff;
   }
 
+  @media (prefers-color-scheme: dark) {
+    .antd-layout-sider-children {
+      background-color: #0f172a;
+    }
+    .pageContent {
+      background-color: #0b1220;
+    }
+    .pageCard {
+      background: #0b1220;
+      border-radius: 8px;
+    }
+    .footer {
+      border-top-color: #1f2937;
+      color: #9ca3af;
+    }
+    .headerRight span,
+    .headerRight .headerLabel,
+    .headerRight .headerMeta {
+      color: #9ca3af;
+    }
+    .profileAvatar {
+      background: #e5e7eb;
+    }
+  }
+
   .footer {
     position: absolute;
     bottom: 0;
@@ -144,7 +181,7 @@ const StyleDiv = styled.div`
 
   .footer-content {
     text-align: center;
-    background: colorBgContainer;
+    background: white;
     border-top: 1px solid #f0f0f0;
     font-size: 12px;
     color: #666;
@@ -165,7 +202,6 @@ const StyleDiv = styled.div`
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.35);
     z-index: 60;
     opacity: 0;
     transition: opacity 0.2s ease;
