@@ -16,7 +16,7 @@ import Contribute from "./Pages/Contribute";
 import Register from "./Pages/authorisation/Register";
 import Login from "./Pages/authorisation/Login";
 
-import AllPagesNav from "./Pages/AllPagesNav";
+import AllPagesNav from "./Pages/AllPages";
 import styled from "styled-components";
 import vectorImage from "./images/Vector 2.png";
 import { useState, type ReactNode } from "react";

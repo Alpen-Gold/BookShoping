@@ -5,7 +5,7 @@ import {
   BookOutlined,
   GiftOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Button, Layout, Menu } from "antd";
 
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
@@ -112,13 +112,13 @@ const StyleDiv = styled.div`
 
   .antd-layout-header {
     background-color: rgb(233, 233, 237);
-    padding: 24px;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
   .leyout {
-    min-height: calc(100vh - 56px) !important;
+    min-height: calc(100vh - 200px) !important;
   }
 
   .antd-layout-sider-children {
@@ -293,10 +293,15 @@ const StyleDiv = styled.div`
   }
 
   .pageContent {
-    padding: 24px;
+    padding: 0 20px;
     background-color: #e9e9ed;
-    overflow: auto;
+    height: calc(100vh - 104px);
+    overflow-y: auto;
     scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .pageContent::-webkit-scrollbar {
+    display: none;
   }
 
   .pageCard {

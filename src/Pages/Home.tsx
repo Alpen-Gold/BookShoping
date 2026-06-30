@@ -106,23 +106,24 @@ function Home() {
   useEffect(() => {
     getHomeQuestions(dispatch).then((data: any) => setHomeData(data));
   }, []);
-
   if (loading)
     return (
-      <div className="lds-ellipsis">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    );
-  if (error)
-    return (
-      <div className=" d-flex mt-4 justify-center text-red-600">
-        You have problem or your connection is not working!
+      <div className="flex w-full items-center justify-center">
+        <div className="lds-ellipsis">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     );
 
+  if (error)
+    return (
+      <div className="mt-4 flex justify-center text-red-600">
+        You have a problem, or your connection is not working!
+      </div>
+    );
   const apiBooks: Book[] = (() => {
     if (!homeData) return [];
     if (Array.isArray(homeData)) return homeData;
@@ -136,7 +137,7 @@ function Home() {
   return (
     <>
       <StyledDiv>
-        <div className="container">
+        <div className="container mb-[75px]">
           <div className="carousel-wrapper">
             <Carousel autoplay autoplaySpeed={5000}>
               {quotes.map((item: Quote, index) => (

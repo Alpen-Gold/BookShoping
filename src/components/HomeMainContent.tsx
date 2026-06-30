@@ -118,6 +118,28 @@ function HomeMainContent() {
           ))}
         </div>
       </div>
+
+      <div className="books-father">
+        <p>Recommended for You</p>
+        <div
+          className={`books-grid ${isDragging ? "is-grabbing" : ""}`}
+          ref={containerRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+        >
+          {books.map((book) => (
+            <div key={book.id} className="book-card">
+              <img src={book.image} alt={book.title} />
+              <div className="book-info">
+                <h4 className=" text-decoration-underline">{book.title}</h4>
+                <span className="category">{book.category}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </StyleDiv>
   );
 }
@@ -176,7 +198,7 @@ const StyleDiv = styled.div`
   }
 
   .books-father {
-    margin-top: 4rem;
+    margin-top: 2rem;
 
     > p {
       color: black;
