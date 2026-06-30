@@ -5,10 +5,11 @@ import {
   BookOutlined,
   GiftOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, Select, Switch } from "antd";
+import { Layout, Menu } from "antd";
 
 import styled from "styled-components";
-const { Header, Content, Sider } = Layout;
+import Navbar from "../components/Navbar";
+const { Content, Sider } = Layout;
 
 function AllPagesNav() {
   const menuItems = [
@@ -85,42 +86,7 @@ function AllPagesNav() {
         {/* MAIN LAYOUT */}
         <Layout>
           {/* HEADER */}
-          <Header className="appHeader">
-            {/* Right Side - Info */}
-            <div className="headerRight">
-              <Button type="text" icon={<SearchOutlined />} />
-
-              <span className="headerLabel">Lang</span>
-              <Select
-                defaultValue="Eng"
-                className="headerSelect"
-                options={[
-                  { label: "Eng", value: "Eng" },
-                  { label: "Rus", value: "Rus" },
-                ]}
-              />
-
-              <span className="headerMeta">09:00 AM</span>
-              <span className="headerMeta">4-MAR-2023</span>
-
-              <div className="profileWrap">
-                <div className="profileAvatar" />
-                <span className="profileName">Kenson</span>
-              </div>
-
-              <span className="themeToggleLabel">Theme</span>
-              <Switch
-                checked={localStorage.getItem("themeMode") === "dark"}
-                checkedChildren="Dark"
-                unCheckedChildren="Light"
-                onChange={(checked) => {
-                  const mode = checked ? "dark" : "light";
-                  localStorage.setItem("themeMode", mode);
-                  window.location.reload();
-                }}
-              />
-            </div>
-          </Header>
+          <Navbar />
 
           <Content className="pageContent">
             <div className="pageCard">
@@ -136,6 +102,21 @@ function AllPagesNav() {
 export default AllPagesNav;
 
 const StyleDiv = styled.div`
+  .icon-dates {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: grey;
+    font-weight: 600;
+  }
+
+  .antd-layout-header {
+    background-color: rgb(233, 233, 237);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   .leyout {
     min-height: calc(100vh - 56px) !important;
   }
@@ -321,7 +302,6 @@ const StyleDiv = styled.div`
   .pageCard {
     background: #e9e9ed;
     border-radius: 8px;
-    padding: 24px;
   }
 
   @media (max-width: 991px) {
