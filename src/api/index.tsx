@@ -17,11 +17,14 @@ export const getHomeQuestions = async (dispatch: any) => {
   try {
     const token = localStorage.getItem("token");
 
-    const { data } = await api.get("/book/get-all", {
-      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
-    });
+    const { data } = await api.get(
+      "/products"
+      // {
+      //   headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      // }
+    );
 
-    return data;
+    console.log(data);
   } catch (error) {
     dispatch(handleError(getErrorMessage(error)));
   } finally {

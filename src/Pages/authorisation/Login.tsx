@@ -3,33 +3,41 @@ import { useState } from "react";
 import { Button, Input, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import AuthPageFrame from "./AuthPageFrame";
+import { useDispatch } from "react-redux";
+import { handleError, handleLoading } from "../../stores/slices/allFuncSlices";
+import axios from "axios";
+import { setTokenAndUser } from "../../stores/slices/authSlice";
 
 const Login = () => {
   const [emailOrName, setEmailOrName] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const onLogin = async () => {
-    try {
-      const res = await fetch("https://5d20df6821c8800e.mokky.dev/register", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: emailOrName,
-          password,
-        }),
-      });
+    dispatch(handleLoading(true));
 
-      // fallback: if backend returns token/user, handle it here
-      // this project currently doesn’t set token in this page
-      if (!res.ok) throw new Error("Login failed");
+    try {
+      const data = await axios.post(
+        "https://my-books-n5re.onrender.com/api/auth/login",
+        {
+          email: "usernew@gmail.com",
+          pass: "usernew",
+        }
+      );
+
+      console.log(data);
+
+      // dispatch(setTokenAndUser({ token: data.token, user: data.user }));
       navigate("/");
-    } catch (e: any) {
-      alert(e?.message || e);
+    } catch (error) {
+      console.log("Status:", error.response?.status);
+      console.log("Data:", error.response?.data);
+      console.log("Message:", error.response?.data?.message);
+    } finally {
+      dispatch(handleLoading(false));
     }
   };
 

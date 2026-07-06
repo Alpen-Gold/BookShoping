@@ -104,7 +104,7 @@ function Home() {
   const [homeData, setHomeData] = useState<any>(null);
 
   useEffect(() => {
-    getHomeQuestions(dispatch).then((data: any) => setHomeData(data));
+    getHomeQuestions(dispatch);
   }, []);
   if (loading)
     return (
