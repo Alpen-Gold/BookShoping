@@ -4,11 +4,13 @@ import {
   TranslationOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Input, Layout, Select, Space,Avatar } from "antd";
+import { Input, Layout, Select, Space, Avatar } from "antd";
 import type { SearchProps } from "antd/es/input";
+import { useNavigate } from "react-router-dom";
 const { Header } = Layout;
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   const options = [
     {
       value: "all",
@@ -74,6 +76,8 @@ export const Navbar = () => {
 
       <Space size={40}>
         {/* Time */}
+        <button onClick={() => navigate("/admin")}>Admin</button>
+
         <div className="icon-dates">
           <ClockCircleOutlined className="icon" />
           <span>{getCurrentTime()}</span>
