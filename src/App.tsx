@@ -5,7 +5,6 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-  Navigate,
 } from "react-router-dom";
 
 import Home from "./Pages/Home";
@@ -19,42 +18,11 @@ import Login from "./Pages/authorisation/Login";
 import AllPagesNav from "./Pages/AllPages";
 import styled from "styled-components";
 import vectorImage from "./images/Vector 2.png";
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { ConfigProvider, theme } from "antd";
-
-type RouteProps = {
-  children: ReactNode;
-};
-/* -------------------- AUTH CHECK -------------------- */
-const getToken = () => {
-  const token = localStorage.getItem("token");
-  if (!token || token === "null" || token === "undefined") return null;
-  return token;
-};
-
-/* -------------------- PROTECTED ROUTE -------------------- */
-const ProtectedRoute = ({ children }: RouteProps) => {
-  const token = getToken();
-
-  console.log("token", token);
-
-  if (!token) {
-    return <Navigate to="/register" replace />;
-  }
-
-  return children;
-};
-
-/* -------------------- PUBLIC ROUTE -------------------- */
-const PublicRoute = ({ children }: RouteProps) => {
-  const token = getToken();
-
-  if (token) {
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-};
+import AllPagesAdmin from "./admin/Pages/AllPagesAdmin";
+import DashboardAdmin from "./admin/Pages/Dashboard";
+import { ProtectedRoute, PublicRoute } from "./routes/Protection";
 
 /* -------------------- LAYOUT -------------------- */
 function RootLayout() {
@@ -66,12 +34,13 @@ function RootLayout() {
 }
 
 /* -------------------- ROUTER -------------------- */
+
 function App() {
   const [themeMode, _setThemeMode] = useState("light");
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        {/* AUTH PAGES (ONLY FOR NOT LOGGED USERS) */}
+        {/* auth */}
         <Route
           path="/register"
           element={
@@ -80,7 +49,6 @@ function App() {
             </PublicRoute>
           }
         />
-
         <Route
           path="/login"
           element={
@@ -90,7 +58,7 @@ function App() {
           }
         />
 
-        {/* MAIN APP */}
+        {/* main */}
         <Route path="/" element={<RootLayout />}>
           <Route
             index
@@ -100,20 +68,17 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          <Route path="/search" element={<Search />} />
-
+          <Route path="search" element={<Search />} />
           <Route
-            path="/my-shelf"
+            path="my-shelf"
             element={
               <ProtectedRoute>
                 <MyShelf />
               </ProtectedRoute>
             }
           />
-
           <Route
-            path="/contribute"
+            path="contribute"
             element={
               <ProtectedRoute>
                 <Contribute />
@@ -122,8 +87,10 @@ function App() {
           />
         </Route>
 
-        {/* fallback */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* admin */}
+        <Route path="/admin" element={<AllPagesAdmin />}>
+          <Route index element={<DashboardAdmin />} />
+        </Route>
       </>
     )
   );

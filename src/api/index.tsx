@@ -15,7 +15,7 @@ export const getHomeQuestions = async (dispatch: any) => {
   dispatch(handleLoading(true));
 
   try {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
     const { data } = await api.get(
       "/products"
@@ -45,7 +45,10 @@ export const registerApi = async (
       fullName: formData.fullName,
       email: formData.email,
       password: formData.password,
+      role: "buyer",
     });
+
+    console.log(data);
 
     dispatch(setTokenAndUser({ token: data.token, user: data.user }));
     navigate("/");

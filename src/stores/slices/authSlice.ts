@@ -21,6 +21,8 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.user = action.payload.user;
 
+      console.log("test toek", action.payload.token);
+
       localStorage.setItem("token", action.payload.token);
     },
   },

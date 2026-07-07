@@ -5,7 +5,7 @@ import {
   BookOutlined,
   GiftOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu } from "antd";
+import { Layout, Menu } from "antd";
 
 import styled from "styled-components";
 import Navbar from "../components/Navbar";

@@ -4,9 +4,10 @@ import { Button, Input, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import AuthPageFrame from "./AuthPageFrame";
 import { useDispatch } from "react-redux";
-import { handleError, handleLoading } from "../../stores/slices/allFuncSlices";
+import { handleLoading } from "../../stores/slices/allFuncSlices";
 import axios from "axios";
 import { setTokenAndUser } from "../../stores/slices/authSlice";
+// import { setTokenAndUser } from "../../stores/slices/authSlice";
 
 const Login = () => {
   const [emailOrName, setEmailOrName] = useState("");
@@ -23,16 +24,21 @@ const Login = () => {
       const data = await axios.post(
         "https://my-books-n5re.onrender.com/api/auth/login",
         {
-          email: "usernew@gmail.com",
-          pass: "usernew",
+          email: String(emailOrName),
+          password: String(password),
         }
       );
 
       console.log(data);
 
-      // dispatch(setTokenAndUser({ token: data.token, user: data.user }));
+      dispatch(
+        setTokenAndUser({
+          token: data.data.accessToken,
+          user: data.data.userDto,
+        })
+      );
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       console.log("Status:", error.response?.status);
       console.log("Data:", error.response?.data);
       console.log("Message:", error.response?.data?.message);

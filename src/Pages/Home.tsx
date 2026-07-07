@@ -101,7 +101,7 @@ function Home() {
   const { error, loading } = useSelector((store: any) => store.allFunctions);
 
   const dispatch = useDispatch();
-  const [homeData, setHomeData] = useState<any>(null);
+  const [homeData, _] = useState<any>(null);
 
   useEffect(() => {
     getHomeQuestions(dispatch);
