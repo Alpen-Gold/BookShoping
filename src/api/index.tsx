@@ -1,5 +1,5 @@
 import axios, { type AxiosError } from "axios";
-import { handleError, handleLoading } from "../stores/slices/allFuncSlices";
+import { handleError, handleLoading } from "../stores/slices/datasSlice";
 import { setTokenAndUser } from "../stores/slices/authSlice";
 
 const api = axios.create({
@@ -11,7 +11,7 @@ const getErrorMessage = (error: unknown) => {
   return err.response?.data?.message || err.message || "Something went wrong";
 };
 
-export const getHomeQuestions = async (dispatch: any) => {
+export const getProducts = async (dispatch: any) => {
   dispatch(handleLoading(true));
 
   try {

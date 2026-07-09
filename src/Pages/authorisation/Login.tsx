@@ -4,7 +4,7 @@ import { Button, Input, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import AuthPageFrame from "./AuthPageFrame";
 import { useDispatch } from "react-redux";
-import { handleLoading } from "../../stores/slices/allFuncSlices";
+import { handleLoading } from "../../stores/slices/datasSlice";
 import axios from "axios";
 import { setTokenAndUser } from "../../stores/slices/authSlice";
 // import { setTokenAndUser } from "../../stores/slices/authSlice";

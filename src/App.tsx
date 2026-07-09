@@ -23,6 +23,8 @@ import { ConfigProvider, theme } from "antd";
 import AllPagesAdmin from "./admin/Pages/AllPagesAdmin";
 import DashboardAdmin from "./admin/Pages/Dashboard";
 import { ProtectedRoute, PublicRoute } from "./routes/Protection";
+import ProductsAdmin from "./admin/Pages/Products";
+import AddProduct from "./admin/Pages/AddProduct";
 
 /* -------------------- LAYOUT -------------------- */
 function RootLayout() {
@@ -90,6 +92,8 @@ function App() {
         {/* admin */}
         <Route path="/admin" element={<AllPagesAdmin />}>
           <Route index element={<DashboardAdmin />} />
+          <Route path="products" element={<ProductsAdmin />} />
+          <Route path="products/create" element={<AddProduct />} />
         </Route>
       </>
     )

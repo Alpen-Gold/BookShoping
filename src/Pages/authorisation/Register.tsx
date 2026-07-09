@@ -13,7 +13,7 @@ const Register = () => {
     confirmPassword: "",
   });
 
-  const { error, loading } = useSelector((store: any) => store.allFunctions);
+  const { error, loading } = useSelector((store: any) => store.datasSlice);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

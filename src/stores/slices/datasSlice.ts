@@ -1,21 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { ProductsType } from "../../types";
 
-export interface CounterState {
-  value: number;
+export interface State {
   loading: boolean;
   handleError: string;
-  user: string | null;
+  products: ProductsType | [];
 }
 
-const initialState: CounterState = {
-  value: 0,
+const initialState: State = {
   loading: false,
   handleError: "",
-  user: localStorage.getItem("user") || null,
+  products: [],
 };
 
-export const counterSlice = createSlice({
-  name: "allFunctions",
+export const datasSlice = createSlice({
+  name: "datasSlice",
   initialState,
   reducers: {
     // increment: (state) => {
@@ -35,10 +34,14 @@ export const counterSlice = createSlice({
     handleError: (state, action) => {
       state.handleError = action.payload;
     },
+
+    setProducts: (state, action) => {
+      state.products = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { handleLoading, handleError } = counterSlice.actions;
+export const { handleLoading, handleError, setProducts } = datasSlice.actions;
 
-export default counterSlice.reducer;
+export default datasSlice.reducer;

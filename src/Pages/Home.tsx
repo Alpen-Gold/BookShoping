@@ -3,7 +3,7 @@ import styled from "styled-components";
 import HomeMainContent from "../components/HomeMainContent";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getHomeQuestions } from "../api";
+import { getProducts } from "../api";
 
 interface Quote {
   text: string;
@@ -98,13 +98,13 @@ const books: Book[] = [
 ];
 
 function Home() {
-  const { error, loading } = useSelector((store: any) => store.allFunctions);
+  const { error, loading } = useSelector((store: any) => store.datasSlice);
 
   const dispatch = useDispatch();
   const [homeData, _] = useState<any>(null);
 
   useEffect(() => {
-    getHomeQuestions(dispatch);
+    getProducts(dispatch);
   }, []);
   if (loading)
     return (

@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useState } from "react";
 import {
   DashboardOutlined,
@@ -17,6 +17,42 @@ const { Content, Sider, Header } = Layout;
 
 function AllPagesAdmin() {
   const [collapsed, _setCollapsed] = useState(false);
+
+  const location = useLocation();
+
+  const selectedKeys = () => {
+    switch (true) {
+      case location.pathname === "/admin":
+        return ["1"];
+
+      case location.pathname.startsWith("/admin/products/create"):
+        return ["2-2"];
+
+      case location.pathname.startsWith("/admin/products"):
+        return ["2-1"];
+
+      case location.pathname.startsWith("/admin/orders"):
+        return ["3"];
+
+      case location.pathname.startsWith("/admin/users"):
+        return ["4"];
+
+      case location.pathname.startsWith("/admin/categories"):
+        return ["5-1"];
+
+      case location.pathname.startsWith("/admin/authors"):
+        return ["5-2"];
+
+      case location.pathname.startsWith("/admin/publishers"):
+        return ["5-3"];
+
+      case location.pathname.startsWith("/admin/settings"):
+        return ["6"];
+
+      default:
+        return [];
+    }
+  };
 
   // Menu Items
   const menuItems = [
@@ -125,8 +161,9 @@ function AllPagesAdmin() {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={["1"]}
+            selectedKeys={selectedKeys()}
             items={menuItems}
+            defaultOpenKeys={["2", "5"]}
             className="admin-menu"
           />
         </Sider>

@@ -11,8 +11,6 @@ function DashboardAdmin() {
   return (
     <StyleDiv>
       <div className="dashboardAdmin">
-        <h1>DashboardAdmin</h1>
-
         {/* KPI Cards */}
         <Row gutter={[16, 16]} className="kpi-row">
           <Col xs={24} sm={12} lg={6}>
