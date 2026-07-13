@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { ProductsType } from "../../types";
 
 export interface State {
   loading: boolean;
   handleError: string;
-  products: ProductsType | [];
+  products: [];
+  categories: [];
 }
 
 const initialState: State = {
   loading: false,
   handleError: "",
   products: [],
+  categories: [],
 };
 
 export const datasSlice = createSlice({
@@ -38,10 +39,15 @@ export const datasSlice = createSlice({
     setProducts: (state, action) => {
       state.products = action.payload;
     },
+
+    setCategories: (state, action) => {
+      state.categories = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { handleLoading, handleError, setProducts } = datasSlice.actions;
+export const { handleLoading, handleError, setProducts, setCategories } =
+  datasSlice.actions;
 
 export default datasSlice.reducer;

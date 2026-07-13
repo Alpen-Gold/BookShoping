@@ -1,15 +1,42 @@
-import { Form, Input, InputNumber, Select, Switch, Upload, Button } from "antd";
+import {
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  Switch,
+  Upload,
+  Button,
+  Rate,
+} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { useEffect } from "react";
+import { addProductAdmin, getCategoriesAdmin } from "../api";
+import { useDispatch, useSelector } from "react-redux";
 
 const { TextArea } = Input;
 
 function AddProduct() {
   const [form] = Form.useForm();
-
+  const dispatch = useDispatch();
+  const { categories } = useSelector((store: any) => store.datasSlice);
   const onFinish = (values: any) => {
     console.log("Form values:", values);
-    // dispatch AddProduct(values) or call your API here
+
+    addProductAdmin(dispatch, {
+      ...values,
+      images: values.images.originFileObj,
+    });
   };
+
+  useEffect(() => {
+    getCategoriesAdmin(dispatch);
+  }, []);
+
+  useEffect(() => {
+    if (categories && categories.length > 0) {
+      form.setFieldValue("category", categories[0]._id);
+    }
+  }, [categories]);
 
   return (
     <Form
@@ -50,16 +77,27 @@ function AddProduct() {
 
       <Form.Item
         label="Category"
-        name="categoryId"
+        name="category"
         rules={[{ required: true, message: "Please select a category" }]}
       >
         <Select
           placeholder="Select category"
-          options={[
-            // ideally fetched from your categories API
-            { label: "Book", value: "6a42841c42f64d5cd5de95d8" },
-          ]}
+          loading={!categories}
+          options={categories?.map((item: any) => ({
+            label: item.name,
+            value: item._id,
+          }))}
         />
+      </Form.Item>
+
+      <Form.Item
+        rules={[
+          { required: true, message: "Please check rating of this book!" },
+        ]}
+        name="rating"
+        label="Rate"
+      >
+        <Rate />
       </Form.Item>
 
       <Form.Item
